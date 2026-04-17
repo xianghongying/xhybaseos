@@ -7,6 +7,8 @@
 
 构建方式如下：
 ```shell
+cd ubuntu26.04
+
 docker buildx build \
     --platform linux/amd64,linux/arm64 \
     --cache-from=type=local,src=/root/.buildx-cache \
@@ -19,6 +21,8 @@ docker buildx build \
 
 构建方式如下：
 ```shell
+cd ubuntu24.04
+
 docker buildx build \
     --platform linux/amd64,linux/arm64 \
     --cache-from=type=local,src=/root/.buildx-cache \
@@ -31,10 +35,26 @@ docker buildx build \
 
 构建方式如下；
 ```shell
+cd alpine3.23.4
+
 docker buildx build \
     --platform linux/amd64,linux/arm64 \
     --cache-from=type=local,src=/root/.buildx-cache \
     --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
     -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyalpine:3.23 \
+    --push .
+```
+
+### Nginx
+
+构建方式如下：
+```shell
+cd nginx1.30
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhynginx:1.30.0-alpine \
     --push .
 ```
