@@ -58,3 +58,17 @@ docker buildx build \
     -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhynginx:1.30.0-alpine \
     --push .
 ```
+
+### python3
+
+构建方式如下：
+```shell
+cd python3.14.4-alpine/
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhypython:3.14.4-alpine \
+    --push .
+```

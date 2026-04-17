@@ -1,11 +1,11 @@
 #==================== 配置基础信息 ====================
-FROM docker.1ms.run/library/alpine:3.23.4
+FROM docker.1ms.run/library/python:3.14.4-alpine
 
 # 设置时区为亚洲/上海（东八区 UTC+8）
 ENV TZ=Asia/Shanghai
 
 #==================== 配置镜像信息 ====================
-LABEL org.opencontainers.image.title="xhybaseos-alpine:3.23.4" \
+LABEL org.opencontainers.image.title="python3.14.4-alpine" \
       org.opencontainers.image.description="Alpine:3.23.4 Base OS Image" \
       org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.authors="xhy"
@@ -26,7 +26,8 @@ trusted-host=mirrors.aliyun.com
 EOF
 
 #==================== 安装常用工具 ====================
-RUN apk update && apk add --no-cache \
+RUN RUN set -eux; \
+    apk update && apk add --no-cache \
     bash \
     bind-tools \
     bzip2 \
@@ -64,4 +65,4 @@ RUN echo 'source /etc/profile.d/custom_bash.sh' >> /root/.bashrc
 
 WORKDIR /root
 
-CMD ["/bin/bash", "-l"]
+CMD ["python3"]

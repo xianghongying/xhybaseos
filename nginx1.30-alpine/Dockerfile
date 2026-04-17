@@ -16,6 +16,15 @@ https://mirrors.aliyun.com/alpine/v3.23/main
 https://mirrors.aliyun.com/alpine/v3.23/community
 EOF
 
+RUN mkdir -p ~/.pip
+RUN cat > ~/.pip/pip.conf <<EOF
+[global]
+index-url = http://mirrors.aliyun.com/pypi/simple/
+
+[install]
+trusted-host=mirrors.aliyun.com
+EOF
+
 #==================== 安装常用工具 ====================
 RUN RUN set -eux; \
     apk update && apk add --no-cache \
