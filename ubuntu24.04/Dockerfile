@@ -9,7 +9,7 @@ ENV TZ=Asia/Shanghai
 
 #==================== 配置镜像信息 ====================
 LABEL org.opencontainers.image.title="xhybaseos-ubuntu24.04" \
-      org.opencontainers.image.description="Ubuntu 24.04 LTS (Resolute Raccoon) Base OS Image" \
+      org.opencontainers.image.description="Ubuntu 24.04 LTS (Noble Raccoon) Base OS Image" \
       org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.authors="xhy"
 
@@ -34,13 +34,13 @@ RUN set -eux; \
     cat > /etc/apt/sources.list.d/ubuntu.sources <<EOF
 Types: deb
 URIs: ${UBUNTU_URI}
-Suites: resolute resolute-updates resolute-backports
+Suites: noble noble-updates noble-backports
 Components: main restricted universe multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
 Types: deb
 URIs: ${UBUNTU_URI}
-Suites: resolute-security
+Suites: noble-security
 Components: main restricted universe multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 EOF
