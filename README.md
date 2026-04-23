@@ -87,7 +87,7 @@ docker run -it --rm --name testdocker registry.cn-hangzhou.aliyuncs.com/xhyimage
 
 构建方式如下：
 ```shell
-cd python3.14.4-alpine/
+cd python3.14.4-alpine
 
 docker buildx build \
     --platform linux/amd64,linux/arm64 \
