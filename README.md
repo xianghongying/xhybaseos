@@ -17,6 +17,12 @@ docker buildx build \
     --push .
 ```
 
+运行测试：
+
+```shell
+docker run -it --rm --name testdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:26.04
+```
+
 ### Ubuntu 24.04
 
 构建方式如下：
@@ -29,6 +35,12 @@ docker buildx build \
     --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
     -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:24.04 \
     --push .
+```
+
+运行测试：
+
+```shell
+docker run -it --rm --name testdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:24.04
 ```
 
 ### Alpine 3.23
@@ -45,6 +57,12 @@ docker buildx build \
     --push .
 ```
 
+运行测试：
+
+```shell
+docker run -it --rm --name testdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyalpine:3.23
+```
+
 ### Nginx
 
 构建方式如下：
@@ -59,6 +77,12 @@ docker buildx build \
     --push .
 ```
 
+运行测试：
+
+```shell
+docker run -it --rm --name testdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhynginx:1.30.0-alpine
+```
+
 ### python3
 
 构建方式如下：
@@ -71,4 +95,9 @@ docker buildx build \
     --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
     -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhypython:3.14.4-alpine \
     --push .
+```
+运行测试：
+
+```shell
+docker run -it --rm --name testdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhypython:3.14.4-alpine
 ```
