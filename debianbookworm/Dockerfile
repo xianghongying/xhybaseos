@@ -23,14 +23,12 @@ RUN apt-get update && \
 ARG TARGETARCH
 
 # 设置阿里云源
+ARG TARGETARCH
 RUN set -eux; \
-    . /etc/os-release; echo "OS=${ID} VERSION=${VERSION_CODENAME} ARCH=${TARGETARCH}"; \
-    if [ "${TARGETARCH}" = "amd64" ]; then \
-      DEBIAN_URI="https://mirrors.aliyun.com/debian"; \
-    else \
-      # arm64/armhf 等走 ports
-      DEBIAN_URI="https://mirrors.aliyun.com/debian-ports"; \
-    fi; \
+    case "${TARGETARCH}" in \
+      amd64|arm64) DEBIAN_URI="https://mirrors.aliyun.com/debian" ;; \
+      *)           DEBIAN_URI="https://mirrors.aliyun.com/debian-ports" ;; \
+    esac; \
     cat > /etc/apt/sources.list.d/debian.sources <<EOF
 Types: deb
 URIs: ${DEBIAN_URI}
@@ -39,7 +37,7 @@ Components: main
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
 Types: deb
-URIs: ${DEBIAN_URI}
+URIs: https://mirrors.aliyun.com/debian-security
 Suites: bookworm-security
 Components: main
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
