@@ -3,45 +3,6 @@
 本仓库存储个人使用的基于各类系统所构建的容器镜像所需的原始dockerfile。
 
 ## 构建方式
-### Ubuntu 26.04
-
-构建方式如下：
-```shell
-cd ubuntu26.04
-
-docker buildx build \
-    --platform linux/amd64,linux/arm64 \
-    --cache-from=type=local,src=/root/.buildx-cache \
-    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
-    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:26.04 \
-    --push .
-```
-
-运行测试：
-
-```shell
-docker run -it --rm --name testdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:26.04
-```
-
-### Ubuntu 24.04
-
-构建方式如下：
-```shell
-cd ubuntu24.04
-
-docker buildx build \
-    --platform linux/amd64,linux/arm64 \
-    --cache-from=type=local,src=/root/.buildx-cache \
-    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
-    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:24.04 \
-    --push .
-```
-
-运行测试：
-
-```shell
-docker run -it --rm --name testdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:24.04
-```
 
 ### Alpine 3.23
 
@@ -60,7 +21,27 @@ docker buildx build \
 运行测试：
 
 ```shell
-docker run -it --rm --name testdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyalpine:3.23
+docker run -it --rm --name alpinedocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyalpine:3.23
+```
+
+### Debianbookworm
+
+构建方式如下；
+```shell
+cd debianbookworm
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhydebian:bookworm-slim \
+    --push .
+```
+
+运行测试：
+
+```shell
+docker run -it --rm --name debiandocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhydebian:bookworm-slim
 ```
 
 ### Nginx
@@ -80,7 +61,7 @@ docker buildx build \
 运行测试：
 
 ```shell
-docker run -it --rm --name testdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhynginx:1.30.0-alpine
+docker run -it --rm --name nginxdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhynginx:1.30.0-alpine
 ```
 
 ### python3
@@ -99,5 +80,45 @@ docker buildx build \
 运行测试：
 
 ```shell
-docker run -it --rm --name testdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhypython:3.14.4-alpine
+docker run -it --rm --name pythondocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhypython:3.14.4-alpine
+```
+
+### Ubuntu 24.04
+
+构建方式如下：
+```shell
+cd ubuntu24.04
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:24.04 \
+    --push .
+```
+
+运行测试：
+
+```shell
+docker run -it --rm --name ubuntu24docker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:24.04
+```
+
+### Ubuntu 26.04
+
+构建方式如下：
+```shell
+cd ubuntu26.04
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:26.04 \
+    --push .
+```
+
+运行测试：
+
+```shell
+docker run -it --rm --name ubuntu26docker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:26.04
 ```
