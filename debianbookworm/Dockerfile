@@ -1,7 +1,7 @@
 #==================== 配置基础信息 ====================
 FROM docker.1ms.run/library/debian:bookworm-slim
 
-# 避免交互式提示阻塞构建
+# 避免交互式提示阻塞构建过程
 ARG DEBIAN_FRONTEND=noninteractive
 
 # 设置时区为亚洲/上海（东八区 UTC+8）
