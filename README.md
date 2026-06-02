@@ -65,7 +65,7 @@ docker buildx build \
 运行测试：
 
 ```shell
-docker run -it --rm --name nginxdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyhttpd:alpine3.23
+docker run -it --rm --name httpddocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyhttpd:alpine3.23
 ```
 
 ### Nginx
@@ -145,4 +145,24 @@ docker buildx build \
 
 ```shell
 docker run -it --rm --name ubuntu26docker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:26.04
+```
+
+### Rockylinux:10.1
+
+构建方式如下：
+```shell
+cd rockylinux10.1
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyrockylinux:10.1 \
+    --push .
+```
+
+运行测试：
+
+```shell
+docker run -it --rm --name rocky10docker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyrockylinux:10.1
 ```
