@@ -9,7 +9,7 @@ ENV TZ=Asia/Shanghai
 
 #==================== 配置镜像信息 ====================
 LABEL org.opencontainers.image.title="xhybaseos-ubuntu24.04" \
-      org.opencontainers.image.description="Ubuntu 24.04 LTS (Resolute Raccoon) Base OS Image" \
+      org.opencontainers.image.description="Ubuntu 24.04 LTS (noble Raccoon) Base OS Image" \
       org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.authors="xhy"
 
@@ -34,13 +34,13 @@ RUN set -eux; \
     cat > /etc/apt/sources.list.d/ubuntu.sources <<EOF
 Types: deb
 URIs: ${UBUNTU_URI}
-Suites: resolute resolute-updates resolute-backports
+Suites: noble noble-updates noble-backports
 Components: main restricted universe multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
 Types: deb
 URIs: ${UBUNTU_URI}
-Suites: resolute-security
+Suites: noble-security
 Components: main restricted universe multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 EOF
@@ -75,7 +75,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN curl -fsSL https://down.linuxsb.com/myoptions/myshellinit/my_Bashrc_Diy01_v1 \
         >> /etc/profile.d/custom_bash.sh \
     && curl -fsSL -o /root/.vimrc \
-        https://down.linuxsb.com/myoptions/myshellinit/my_Vimrc_Diy01_v1 \
+        https://down.linuxsb.com/myoptions/myshellinit/my_Vimrc_Diy01_v2 \
     && chmod 644 /etc/profile.d/custom_bash.sh \
     && chmod 644 /root/.vimrc
 

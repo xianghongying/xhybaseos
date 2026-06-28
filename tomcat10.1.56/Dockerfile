@@ -1,22 +1,27 @@
 #==================== 配置基础信息 ====================
-FROM docker.1ms.run/library/ubuntu:26.04
-
-# 避免交互式提示阻塞构建
-ARG DEBIAN_FRONTEND=noninteractive
+FROM js.linuxsb.com/library/tomcat:10.1.56-jre25
 
 # 设置时区为亚洲/上海（东八区 UTC+8）
 ENV TZ=Asia/Shanghai
 
+# 避免交互式提示阻塞构建
+ARG DEBIAN_FRONTEND=noninteractive
+
 #==================== 配置镜像信息 ====================
-LABEL org.opencontainers.image.title="xhybaseos-ubuntu26.04" \
-      org.opencontainers.image.description="Ubuntu 26.04 LTS (Resolute Raccoon) Base OS Image" \
+LABEL org.opencontainers.image.title="xhytomcat:10.1.56-jre25" \
+      org.opencontainers.image.description="Ubuntu 24.04 LTS (noble Numbat) Base OS Image" \
       org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.authors="xhy"
 
-#==================== 安装证书校验 ====================
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends ca-certificates && \
-    update-ca-certificates && \
+#==================== 修复 GPG 密钥环 ====================
+RUN rm -rf /etc/apt/trusted.gpg.d /usr/share/keyrings/ubuntu-archive-keyring.gpg && \
+    apt-get update -o Acquire::AllowInsecureRepositories=true && \
+    apt-get install -y --allow-unauthenticated --no-install-recommends ca-certificates wget && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    wget -qO /usr/share/keyrings/ubuntu-archive-keyring.gpg \
+        http://archive.ubuntu.com/ubuntu/project/ubuntu-archive-keyring.gpg && \
+    apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 #==================== 配置国内仓库 ====================
@@ -34,20 +39,19 @@ RUN set -eux; \
     cat > /etc/apt/sources.list.d/ubuntu.sources <<EOF
 Types: deb
 URIs: ${UBUNTU_URI}
-Suites: resolute resolute-updates resolute-backports
+Suites: noble noble-updates noble-backports
 Components: main restricted universe multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
 Types: deb
 URIs: ${UBUNTU_URI}
-Suites: resolute-security
+Suites: noble-security
 Components: main restricted universe multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 EOF
 
 #==================== 安装常用工具 ====================
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    bind9-dnsutils \
     bzip2 \
     curl \
     diffutils \
@@ -81,7 +85,3 @@ RUN curl -fsSL https://down.linuxsb.com/myoptions/myshellinit/my_Bashrc_Diy01_v1
 
 #==================== 配置登录信息 ====================
 RUN echo 'source /etc/profile.d/custom_bash.sh' >> /root/.bashrc
-
-WORKDIR /root
-
-CMD ["/bin/bash", "-l"]

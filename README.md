@@ -208,6 +208,26 @@ docker buildx build \
 docker run -it --rm --name tomcatappdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhytomcat-app:v3.0.0
 ```
 
+### Tomcat10.1.56
+
+构建方式如下：
+```shell
+cd tomcat10.1.56
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhytomcat:10.1.56-jre25 \
+    --push .
+```
+
+运行测试：
+
+```shell
+docker run -it --rm --name tomcatdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhytomcat:10.1.56-jre25
+```
+
 ### Ubuntu 24.04
 
 构建方式如下：
