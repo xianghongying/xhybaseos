@@ -10,13 +10,13 @@ LABEL org.opencontainers.image.title="xhybaseos-alpine:3.24.1" \
       org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.authors="xhy"
 
-# 设置阿里云源
+#==================== 设置阿里云源 ====================
 RUN echo "https://mirrors.aliyun.com/alpine/v3.24/main"      >  /etc/apk/repositories \
  && echo "https://mirrors.aliyun.com/alpine/v3.24/community" >> /etc/apk/repositories
 
 #==================== 配置 pip 镜像源 ====================
-RUN mkdir -p /root/.pip \
- && echo -e "[global]\nindex-url = http://mirrors.aliyun.com/pypi/simple/\n\n[install]\ntrusted-host = mirrors.aliyun.com" > /root/.pip/pip.conf
+ RUN mkdir -p /root/.pip \
+  && echo -e "[global]\nindex-url = http://mirrors.aliyun.com/pypi/simple/\n\n[install]\ntrusted-host = mirrors.aliyun.com" > /root/.pip/pip.conf
 
 #==================== 安装常用工具 ====================
 RUN apk update && apk add --no-cache \
