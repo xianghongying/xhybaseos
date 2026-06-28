@@ -165,7 +165,7 @@ docker buildx build \
 运行测试：
 
 ```shell
-docker run -it --rm --name pythondocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyredis:8.8.0-alpine3.23
+docker run -it --rm --name redisdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyredis:8.8.0-alpine3.23
 ```
 
 ### Rockylinux:10.1
@@ -205,7 +205,7 @@ docker buildx build \
 运行测试：
 
 ```shell
-docker run -it --rm --name rocky10docker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhytomcat-app:v3.0.0
+docker run -it --rm --name tomcatappdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhytomcat-app:v3.0.0
 ```
 
 ### Ubuntu 24.04
