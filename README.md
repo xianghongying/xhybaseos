@@ -16,14 +16,35 @@ docker buildx build \
     --platform linux/amd64,linux/arm64 \
     --cache-from=type=local,src=/root/.buildx-cache \
     --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
-    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyalpine:3.23 \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyalpine:3.23.4 \
     --push .
 ```
 
 运行测试：
 
 ```shell
-docker run -it --rm --name alpinedocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyalpine:3.23
+docker run -it --rm --name alpinedocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyalpine:3.23.4
+```
+
+### Alpine 3.24
+
+构建方式如下；
+
+```shell
+cd alpine3.24.1
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyalpine:3.24.1 \
+    --push .
+```
+
+运行测试：
+
+```shell
+docker run -it --rm --name alpinedocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyalpine:3.24.1
 ```
 
 ### Debianbookworm
@@ -58,17 +79,17 @@ docker buildx build \
     --platform linux/amd64,linux/arm64 \
     --cache-from=type=local,src=/root/.buildx-cache \
     --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
-    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyhttpd:alpine3.23 \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyhttpd:2.4.68-alpine3.24 \
     --push .
 ```
 
 运行测试：
 
 ```shell
-docker run -it --rm --name httpddocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyhttpd:alpine3.23
+docker run -it --rm --name httpddocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyhttpd:2.4.68-alpine3.24
 ```
 
-### Nginx
+### Nginx 1.30
 
 构建方式如下：
 ```shell
@@ -78,17 +99,37 @@ docker buildx build \
     --platform linux/amd64,linux/arm64 \
     --cache-from=type=local,src=/root/.buildx-cache \
     --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
-    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhynginx:1.30.0-alpine \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhynginx:1.30.0-alpine3.23 \
     --push .
 ```
 
 运行测试：
 
 ```shell
-docker run -it --rm --name nginxdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhynginx:1.30.0-alpine
+docker run -it --rm --name nginxdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhynginx:1.30.0-alpine3.23
 ```
 
-### python3
+### Nginx 1.31
+
+构建方式如下：
+```shell
+cd nginx1.31
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhynginx:1.31.2-alpine3.23 \
+    --push .
+```
+
+运行测试：
+
+```shell
+docker run -it --rm --name nginxdocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhynginx:1.31.2-alpine3.23
+```
+
+### Python3
 
 构建方式如下：
 ```shell
@@ -98,13 +139,33 @@ docker buildx build \
     --platform linux/amd64,linux/arm64 \
     --cache-from=type=local,src=/root/.buildx-cache \
     --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
-    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhypython:3.14.4-alpine \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhypython:3.14-alpine3.24 \
     --push .
 ```
 运行测试：
 
 ```shell
-docker run -it --rm --name pythondocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhypython:3.14.4-alpine
+docker run -it --rm --name pythondocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhypython:3.14-alpine3.24
+```
+
+### Redis8.8
+
+构建方式如下：
+```shell
+cd redis8.8-alpine
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyredis:8.8.0-alpine3.23 \
+    --push .
+```
+
+运行测试：
+
+```shell
+docker run -it --rm --name pythondocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyredis:8.8.0-alpine3.23
 ```
 
 ### Ubuntu 24.04

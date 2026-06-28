@@ -10,20 +10,13 @@ LABEL org.opencontainers.image.title="xhybaseos-alpine:3.23.4" \
       org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.authors="xhy"
 
-# 设置阿里云源
-RUN cat > /etc/apk/repositories <<EOF
-https://mirrors.aliyun.com/alpine/v3.23/main
-https://mirrors.aliyun.com/alpine/v3.23/community
-EOF
+#==================== 设置阿里云源 ====================
+RUN echo "https://mirrors.aliyun.com/alpine/v3.23/main"      >  /etc/apk/repositories \
+ && echo "https://mirrors.aliyun.com/alpine/v3.23/community" >> /etc/apk/repositories
 
-RUN mkdir -p ~/.pip
-RUN cat > ~/.pip/pip.conf <<EOF
-[global]
-index-url = http://mirrors.aliyun.com/pypi/simple/
-
-[install]
-trusted-host=mirrors.aliyun.com
-EOF
+#==================== 配置 pip 镜像源 ====================
+ RUN mkdir -p /root/.pip \
+  && echo -e "[global]\nindex-url = http://mirrors.aliyun.com/pypi/simple/\n\n[install]\ntrusted-host = mirrors.aliyun.com" > /root/.pip/pip.conf
 
 #==================== 安装常用工具 ====================
 RUN apk update && apk add --no-cache \
@@ -48,14 +41,12 @@ RUN apk update && apk add --no-cache \
     unzip \
     vim \
     wget \
-    zip \
-    && rm -rf /var/lib/apt/lists/*
+    zip
 
 #==================== 配置环境信息 ====================
-RUN curl -fsSL https://down.linuxsb.com/myoptions/myshellinit/my_Bashrc_Diy01_v1 \
-        >> /etc/profile.d/custom_bash.sh \
+RUN curl -fsSL https://down.linuxsb.com/myoptions/myshellinit/my_Bashrc_Diy01_v1 >> /etc/profile.d/custom_bash.sh \
     && curl -fsSL -o /root/.vimrc \
-        https://down.linuxsb.com/myoptions/myshellinit/my_Vimrc_Diy01_v1 \
+        https://down.linuxsb.com/myoptions/myshellinit/my_Vimrc_Diy01_v2 \
     && chmod 644 /etc/profile.d/custom_bash.sh \
     && chmod 644 /root/.vimrc
 

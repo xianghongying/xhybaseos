@@ -1,26 +1,25 @@
 #==================== 配置基础信息 ====================
-FROM js.linuxsb.com/library/nginx:1.30.0-alpine3.23
+FROM js.linuxsb.com/library/alpine:3.24.1
 
 # 设置时区为亚洲/上海（东八区 UTC+8）
 ENV TZ=Asia/Shanghai
 
 #==================== 配置镜像信息 ====================
-LABEL org.opencontainers.image.title="xhybaseos-alpine:3.23.4" \
-      org.opencontainers.image.description="Alpine:3.23.4 Base OS Image" \
+LABEL org.opencontainers.image.title="xhybaseos-alpine:3.24.1" \
+      org.opencontainers.image.description="Alpine:3.24.1 Base OS Image" \
       org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.authors="xhy"
 
-#==================== 设置阿里云源 ====================
-RUN echo "https://mirrors.aliyun.com/alpine/v3.23/main"      >  /etc/apk/repositories \
- && echo "https://mirrors.aliyun.com/alpine/v3.23/community" >> /etc/apk/repositories
+# 设置阿里云源
+RUN echo "https://mirrors.aliyun.com/alpine/v3.24/main"      >  /etc/apk/repositories \
+ && echo "https://mirrors.aliyun.com/alpine/v3.24/community" >> /etc/apk/repositories
 
 #==================== 配置 pip 镜像源 ====================
 RUN mkdir -p /root/.pip \
  && echo -e "[global]\nindex-url = http://mirrors.aliyun.com/pypi/simple/\n\n[install]\ntrusted-host = mirrors.aliyun.com" > /root/.pip/pip.conf
 
 #==================== 安装常用工具 ====================
-RUN set -eux; \
-    apk update && apk add --no-cache \
+RUN apk update && apk add --no-cache \
     bash \
     bind-tools \
     bzip2 \
@@ -45,8 +44,7 @@ RUN set -eux; \
     zip
 
 #==================== 配置环境信息 ====================
-RUN curl -fsSL https://down.linuxsb.com/myoptions/myshellinit/my_Bashrc_Diy01_v1 \
-        >> /etc/profile.d/custom_bash.sh \
+RUN curl -fsSL https://down.linuxsb.com/myoptions/myshellinit/my_Bashrc_Diy01_v1 >> /etc/profile.d/custom_bash.sh \
     && curl -fsSL -o /root/.vimrc \
         https://down.linuxsb.com/myoptions/myshellinit/my_Vimrc_Diy01_v2 \
     && chmod 644 /etc/profile.d/custom_bash.sh \
@@ -56,7 +54,5 @@ RUN curl -fsSL https://down.linuxsb.com/myoptions/myshellinit/my_Bashrc_Diy01_v1
 RUN echo 'source /etc/profile.d/custom_bash.sh' >> /root/.bashrc
 
 WORKDIR /root
-COPY ./nginx.conf /etc/nginx/nginx.conf
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/bin/bash", "-l"]

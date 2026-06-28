@@ -1,11 +1,11 @@
 #==================== 配置基础信息 ====================
-FROM js.linuxsb.com/library/nginx:1.30.0-alpine3.23
+FROM docker.1ms.run/library/redis:8.8.0-alpine3.23
 
 # 设置时区为亚洲/上海（东八区 UTC+8）
 ENV TZ=Asia/Shanghai
 
 #==================== 配置镜像信息 ====================
-LABEL org.opencontainers.image.title="xhybaseos-alpine:3.23.4" \
+LABEL org.opencontainers.image.title="redis:8.8.0-alpine" \
       org.opencontainers.image.description="Alpine:3.23.4 Base OS Image" \
       org.opencontainers.image.version="1.0.0" \
       org.opencontainers.image.authors="xhy"
@@ -45,8 +45,7 @@ RUN set -eux; \
     zip
 
 #==================== 配置环境信息 ====================
-RUN curl -fsSL https://down.linuxsb.com/myoptions/myshellinit/my_Bashrc_Diy01_v1 \
-        >> /etc/profile.d/custom_bash.sh \
+RUN curl -fsSL https://down.linuxsb.com/myoptions/myshellinit/my_Bashrc_Diy01_v1 >> /etc/profile.d/custom_bash.sh \
     && curl -fsSL -o /root/.vimrc \
         https://down.linuxsb.com/myoptions/myshellinit/my_Vimrc_Diy01_v2 \
     && chmod 644 /etc/profile.d/custom_bash.sh \
@@ -56,7 +55,6 @@ RUN curl -fsSL https://down.linuxsb.com/myoptions/myshellinit/my_Bashrc_Diy01_v1
 RUN echo 'source /etc/profile.d/custom_bash.sh' >> /root/.bashrc
 
 WORKDIR /root
-COPY ./nginx.conf /etc/nginx/nginx.conf
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["redis-server"]
