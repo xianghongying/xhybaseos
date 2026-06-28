@@ -1,5 +1,5 @@
 #==================== 配置基础信息 ====================
-FROM docker.1ms.run/library/redis:8.8.0-alpine3.23
+FROM js.linuxsb.com/library/redis:8.8.0-alpine3.23
 
 # 设置时区为亚洲/上海（东八区 UTC+8）
 ENV TZ=Asia/Shanghai
@@ -53,8 +53,6 @@ RUN curl -fsSL https://down.linuxsb.com/myoptions/myshellinit/my_Bashrc_Diy01_v1
 
 #==================== 配置登录信息 ====================
 RUN echo 'source /etc/profile.d/custom_bash.sh' >> /root/.bashrc
-
-WORKDIR /root
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["redis-server"]
