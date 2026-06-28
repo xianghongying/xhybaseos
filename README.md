@@ -168,6 +168,46 @@ docker buildx build \
 docker run -it --rm --name pythondocker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyredis:8.8.0-alpine3.23
 ```
 
+### Rockylinux:10.1
+
+构建方式如下：
+```shell
+cd rockylinux10.1
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyrockylinux:10.1 \
+    --push .
+```
+
+运行测试：
+
+```shell
+docker run -it --rm --name rocky10docker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyrockylinux:10.1
+```
+
+### Tomcat-app-v3
+
+构建方式如下：
+```shell
+cd tomcat-appv3
+
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --cache-from=type=local,src=/root/.buildx-cache \
+    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
+    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhytomcat-app:v3.0.0 \
+    --push .
+```
+
+运行测试：
+
+```shell
+docker run -it --rm --name rocky10docker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhytomcat-app:v3.0.0
+```
+
 ### Ubuntu 24.04
 
 构建方式如下：
@@ -208,22 +248,3 @@ docker buildx build \
 docker run -it --rm --name ubuntu26docker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyubuntu:26.04
 ```
 
-### Rockylinux:10.1
-
-构建方式如下：
-```shell
-cd rockylinux10.1
-
-docker buildx build \
-    --platform linux/amd64,linux/arm64 \
-    --cache-from=type=local,src=/root/.buildx-cache \
-    --cache-to=type=local,dest=/root/.buildx-cache,mode=max \
-    -t registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyrockylinux:10.1 \
-    --push .
-```
-
-运行测试：
-
-```shell
-docker run -it --rm --name rocky10docker registry.cn-hangzhou.aliyuncs.com/xhyimages/xhyrockylinux:10.1
-```
